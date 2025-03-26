@@ -1,24 +1,28 @@
-from telegram import Bot, InputMediaDocument, InputMediaPhoto
 import os
+import telebot
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")  # Using environment variables
-CHAT_ID = os.getenv("CHAT_ID")
+# Replace with your bot token and chat ID
+BOT_TOKEN = "8113928778:AAG7a7lmV69LAozPADjGXML6jlsAeDEdIoc"
+CHAT_ID = "-1002550222409"
 
-bot = Bot(token=BOT_TOKEN)
+bot = telebot.TeleBot(8113928778:AAG7a7lmV69LAozPADjGXML6jlsAeDEdIoc)
 
-# File paths
-ipa_path = "file.ipa"  # Change to your IPA file path
-icon_path = "icon.png"  # Change to your icon file path
+# Define the path for the icon
+icon_path = "/app/icon.png"  # Update the path if needed
 
-# Send icon first
-bot.send_photo(chat_id=CHAT_ID, photo=open(icon_path, "rb"))
+# Function to send icon
+def send_icon():
+    if os.path.exists(icon_path):
+        with open(icon_path, "rb") as photo:
+            bot.send_photo(chat_id=CHAT_ID, photo=photo)
+    else:
+        bot.send_message(chat_id=CHAT_ID, text="⚠️ Icon not found. Please upload 'icon.png'.")
 
-# Send IPA file with caption
-bot.send_document(
-    chat_id=CHAT_ID,
-    document=open(ipa_path, "rb"),
-    caption="**Name:** Your App Name\n**Tweak:** Subscription Unlocked\n**Version:** 1.0.0\n**Made by:** YourName",
-    parse_mode="Markdown"
-)
+# Start command
+@bot.message_handler(commands=["start"])
+def start(message):
+    bot.send_message(message.chat.id, "🤖 Bot is online!")
+    send_icon()
 
-print("File uploaded successfully!")
+# Run the bot
+bot.polling()
