@@ -5,7 +5,7 @@ import telebot
 BOT_TOKEN = "8113928778:AAG7a7lmV69LAozPADjGXML6jlsAeDEdIoc"
 CHAT_ID = "-1002550222409"
 
-bot = telebot.TeleBot(8113928778:AAG7a7lmV69LAozPADjGXML6jlsAeDEdIoc)
+bot = telebot.TeleBot(BOT_TOKEN)
 
 # Define the path for the icon
 icon_path = "/telegram-bot-uploader/icon.png"  # Update the path if needed
